@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "yd8L8vjuXh3ZZ53CWYwyILaQJ6c=",
+			"path": "github.com/tidwall/gjson",
+			"revision": "7afd24f7a27574c6a07a012c2bdbdb80b494dc20",
+			"revisionTime": "2016-11-30T21:38:08Z"
+		},
+		{
+			"checksumSHA1": "qmePMXEDYGwkAfT9QvtMC58JN/E=",
+			"path": "github.com/tidwall/match",
+			"revision": "173748da739a410c5b0b813b956f89ff94730b4c",
+			"revisionTime": "2016-08-30T17:39:30Z"
+		}
+	],
+	"rootPath": "github.com/Guitarbum722/greener-grass"
+}
