@@ -16,6 +16,9 @@ func TestSeparateName(t *testing.T) {
 		if got.first != ntc.expected.first {
 			t.Fatalf("First Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.first, ntc.expected.first)
 		}
+		if got.middle != ntc.expected.middle {
+			t.Fatalf("Middle Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.middle, ntc.expected.middle)
+		}
 		if got.last != ntc.expected.last {
 			t.Fatalf("Last Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.last, ntc.expected.last)
 		}
