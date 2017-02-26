@@ -2,7 +2,9 @@
 // regarding data transformation, normalization, cleanup, etc.
 package greenergrass
 
-import "strings"
+import (
+	"strings"
+)
 
 const testVersion = 1
 
@@ -26,26 +28,27 @@ func SeparateName(full string, sep string) Name {
 
 	var firstName string
 	var lastName string
-
-	parts := strings.Split(full, sep)
-
-	if len(parts) == 1 {
-		return Name{first: full}
-	}
+	var midName string
 
 	commaIndex := strings.IndexAny(full, ",")
 	if commaIndex != -1 {
 		lastName = string(full[:commaIndex])
-		firstName = parts[1]
-	} else {
-		lastName = parts[len(parts)-1]
-		firstName = parts[0]
+		full = string(full[commaIndex+1:])
+		full = strings.TrimLeft(full, " ")
 	}
 
-	// If parts is > 2, then any name in between the first and last will be considered the middle name.
-	var midName string
-	if len(parts) > 2 {
+	// parts is a slice of the full input string, or the string following the first comma if provided
+	parts := strings.Split(full, sep)
+
+	if len(parts) == 1 {
+		firstName = full
+	} else if len(parts) >= 2 && lastName != "" {
+		firstName = string(parts[0])
+		midName = strings.Join(parts[1:len(parts)], " ")
+	} else {
+		firstName = string(parts[0])
 		midName = strings.Join(parts[1:len(parts)-1], " ")
+		lastName = string(parts[len(parts)-1])
 	}
 
 	return Name{first: firstName, middle: midName, last: lastName}
