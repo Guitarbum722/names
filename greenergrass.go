@@ -25,6 +25,9 @@ func SeparateName(full string, sep string) Name {
 	if full == "" {
 		return Name{}
 	}
+	if sep == "" {
+		sep = " "
+	}
 
 	var firstName string
 	var lastName string

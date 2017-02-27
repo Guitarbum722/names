@@ -24,3 +24,11 @@ func TestSeparateName(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkSeparateName(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		for _, ntc := range nameTestCases {
+			SeparateName(ntc.input, " ")
+		}
+	}
+}
