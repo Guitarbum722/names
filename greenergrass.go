@@ -3,6 +3,9 @@
 package greenergrass
 
 import (
+	"encoding/csv"
+	"fmt"
+	"os"
 	"strings"
 )
 
@@ -11,6 +14,12 @@ const testVersion = 1
 // Name contains a common list fields that could be combined as a person's full name
 type Name struct {
 	first, middle, last, prefix, suffix string
+}
+
+// init() creates a map consisting of title prefixes and suffixes that are common.
+func init() {
+	// ***change param to use a env extension***
+	titleFiles("")
 }
 
 // SeparateName accepts a name n as input, and parses it according to common logic and returns a Name struct
@@ -51,4 +60,34 @@ func SeparateName(full string, sep string) Name {
 	}
 
 	return Name{first: firstName, middle: midName, last: lastName}
+}
+
+func titleFiles(filePath string) {
+
+	if filePath == "" {
+		filePath = "titles.csv"
+	}
+
+	csvFile, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println(err, filePath)
+		os.Exit(1)
+	}
+	defer csvFile.Close()
+
+	reader := csv.NewReader(csvFile)
+	reader.FieldsPerRecord = -1
+	reader.Comma = ','
+
+	records, err := reader.ReadAll()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	titles := make(map[string]struct{})
+
+	for _, each := range records {
+		titles[each[0]] = struct{}{}
+	}
 }
