@@ -5,8 +5,11 @@ package greenergrass
 import (
 	"encoding/csv"
 	"fmt"
+	"log"
 	"os"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 const testVersion = 1
@@ -19,7 +22,11 @@ type Name struct {
 // init() creates a map consisting of title prefixes and suffixes that are common.
 func init() {
 	// ***change param to use a env extension***
-	titleFiles("")
+	titleList, err := titleFiles("")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(titleList)
 }
 
 // SeparateName accepts a name n as input, and parses it according to common logic and returns a Name struct
@@ -62,16 +69,15 @@ func SeparateName(full string, sep string) Name {
 	return Name{first: firstName, middle: midName, last: lastName}
 }
 
-func titleFiles(filePath string) {
+func titleFiles(filePath string) (map[string]struct{}, error) {
 
 	if filePath == "" {
-		filePath = "titles.csv"
+		filePath = "examples/titles.csv"
 	}
 
 	csvFile, err := os.Open(filePath)
 	if err != nil {
-		fmt.Println(err, filePath)
-		os.Exit(1)
+		return nil, errors.Wrap(err, "error opening csv")
 	}
 	defer csvFile.Close()
 
@@ -81,8 +87,7 @@ func titleFiles(filePath string) {
 
 	records, err := reader.ReadAll()
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return nil, errors.Wrap(err, "error reading csv")
 	}
 
 	titles := make(map[string]struct{})
@@ -90,4 +95,5 @@ func titleFiles(filePath string) {
 	for _, each := range records {
 		titles[each[0]] = struct{}{}
 	}
+	return titles, nil
 }
