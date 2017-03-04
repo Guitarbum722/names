@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "ynJSWoF6v+3zMnh9R0QmmG6iGV8=",
+			"path": "github.com/pkg/errors",
+			"revision": "248dadf4e9068a0b3e79f02ed0a610d935de5302",
+			"revisionTime": "2016-10-29T09:36:37Z"
+		},
+		{
 			"checksumSHA1": "yd8L8vjuXh3ZZ53CWYwyILaQJ6c=",
 			"path": "github.com/tidwall/gjson",
 			"revision": "7afd24f7a27574c6a07a012c2bdbdb80b494dc20",
@@ -15,5 +21,5 @@
 			"revisionTime": "2016-08-30T17:39:30Z"
 		}
 	],
-	"rootPath": "github.com/Guitarbum722/greener-grass"
+	"rootPath": "github.com/Guitarbum722/greenergrass"
 }

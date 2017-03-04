@@ -32,4 +32,20 @@ var nameTestCases = []struct {
 		"Walken, Christopher",
 		Name{first: "Christopher", last: "Walken"},
 	},
+	{
+		"Agent Frank Horrigan",
+		Name{first: "Frank", last: "Horrigan", prefix: "Agent"},
+	},
+	{
+		"Sir Paul McCartney",
+		Name{first: "Paul", last: "McCartney", prefix: "Sir"},
+	},
+	{
+		"Robert Downey Jr.",
+		Name{first: "Robert", last: "Downey", suffix: "Jr."},
+	},
+	{
+		"King George III",
+		Name{first: "George", prefix: "King", suffix: "III"},
+	},
 }

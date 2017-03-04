@@ -4,7 +4,6 @@ package greenergrass
 
 import (
 	"encoding/csv"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -22,18 +21,16 @@ type Name struct {
 // init() creates a map consisting of title prefixes and suffixes that are common.
 func init() {
 	// ***change param to use a env extension***
-	titleList, err := titleFiles("")
+	_, err := titleFiles("")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(titleList)
 }
 
 // SeparateName accepts a name n as input, and parses it according to common logic and returns a Name struct
 // with the fields separated.  If the input string is empty, then the Name will be returned with zero values appropriately.
 // If the input cannot be split on sep, then Name.first will be set as the entire input string.
 func SeparateName(full string, sep string) Name {
-
 	if full == "" {
 		return Name{}
 	}
@@ -44,6 +41,8 @@ func SeparateName(full string, sep string) Name {
 	var firstName string
 	var lastName string
 	var midName string
+	var pref string
+	var suff string
 
 	commaIndex := strings.IndexAny(full, ",")
 	if commaIndex != -1 {
@@ -55,8 +54,20 @@ func SeparateName(full string, sep string) Name {
 	// parts is a slice of the full input string, or the string following the first comma if provided
 	parts := strings.Split(full, sep)
 
+	// check titleList to see if the first word of full is a listed prefix
+	if _, ok := titleList[parts[0]]; ok {
+		pref = parts[0]
+		parts = parts[1:]
+	}
+
+	// check titleList to see if the last word of full is a listed suffix or title
+	if _, ok := titleList[parts[len(parts)-1]]; ok {
+		suff = parts[len(parts)-1]
+		parts = parts[:len(parts)-1]
+	}
+
 	if len(parts) == 1 {
-		firstName = full
+		firstName = parts[0]
 	} else if len(parts) >= 2 && lastName != "" {
 		firstName = string(parts[0])
 		midName = strings.Join(parts[1:len(parts)], " ")
@@ -66,13 +77,15 @@ func SeparateName(full string, sep string) Name {
 		lastName = string(parts[len(parts)-1])
 	}
 
-	return Name{first: firstName, middle: midName, last: lastName}
+	return Name{first: firstName, middle: midName, last: lastName, prefix: pref, suffix: suff}
 }
+
+var titleList = make(map[string]struct{})
 
 func titleFiles(filePath string) (map[string]struct{}, error) {
 
 	if filePath == "" {
-		filePath = "examples/titles.csv"
+		filePath = "titles.csv"
 	}
 
 	csvFile, err := os.Open(filePath)
@@ -90,10 +103,8 @@ func titleFiles(filePath string) (map[string]struct{}, error) {
 		return nil, errors.Wrap(err, "error reading csv")
 	}
 
-	titles := make(map[string]struct{})
-
 	for _, each := range records {
-		titles[each[0]] = struct{}{}
+		titleList[each[0]] = struct{}{}
 	}
-	return titles, nil
+	return titleList, nil
 }
