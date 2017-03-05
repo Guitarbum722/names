@@ -22,6 +22,12 @@ func TestSeparateName(t *testing.T) {
 		if got.last != ntc.expected.last {
 			t.Fatalf("Last Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.last, ntc.expected.last)
 		}
+		if got.prefix != ntc.expected.prefix {
+			t.Fatalf("Prefix ::: SeparateName(%q) = %q, want %q", ntc.input, got.prefix, ntc.expected.prefix)
+		}
+		if got.suffix != ntc.expected.suffix {
+			t.Fatalf("Suffix ::: SeparateName(%q) = %q, want %q", ntc.input, got.suffix, ntc.expected.suffix)
+		}
 	}
 }
 
