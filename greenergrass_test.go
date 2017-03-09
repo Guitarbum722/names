@@ -11,6 +11,9 @@ func TestTestVersion(t *testing.T) {
 }
 
 func TestSeparateName(t *testing.T) {
+	if err := LoadTitleData(); err != nil {
+		t.Fatalf("Failed to load the prefix/suffix data and go the following error\n%s", err)
+	}
 	for _, ntc := range nameTestCases {
 		got := SeparateName(ntc.input, " ")
 		if got.first != ntc.expected.first {

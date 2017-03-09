@@ -4,7 +4,6 @@ package greenergrass
 
 import (
 	"encoding/csv"
-	"log"
 	"os"
 	"strings"
 
@@ -18,13 +17,16 @@ type Name struct {
 	first, middle, last, prefix, suffix string
 }
 
-// init() creates a map consisting of title prefixes and suffixes that are common.
-func init() {
+// LoadTitleData creates a map consisting of title prefixes and suffixes that are common.
+// This can be called optionally by the consumer if they are expecting their input data to
+// include prefixes and/or suffixes
+func LoadTitleData() error {
 	// ***change param to use a env extension***
 	_, err := titleFiles("")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }
 
 // SeparateName accepts a name n as input, and parses it according to common logic and returns a Name struct
