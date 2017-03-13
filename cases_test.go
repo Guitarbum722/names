@@ -6,15 +6,15 @@ var nameTestCases = []struct {
 }{
 	{
 		"John Moore",
-		Name{first: "John", last: "Moore"},
+		Name{First: "John", Last: "Moore"},
 	},
 	{
 		"Donald John Trump",
-		Name{first: "Donald", middle: "John", last: "Trump"},
+		Name{First: "Donald", Middle: "John", Last: "Trump"},
 	},
 	{
 		"Hillary R. Clinton",
-		Name{first: "Hillary", middle: "R.", last: "Clinton"},
+		Name{First: "Hillary", Middle: "R.", Last: "Clinton"},
 	},
 	{
 		"",
@@ -22,30 +22,30 @@ var nameTestCases = []struct {
 	},
 	{
 		"Butherus",
-		Name{first: "Butherus"},
+		Name{First: "Butherus"},
 	},
 	{
 		"Jose Gonzalez Quintero Perez",
-		Name{first: "Jose", middle: "Gonzalez Quintero", last: "Perez"},
+		Name{First: "Jose", Middle: "Gonzalez Quintero", Last: "Perez"},
 	},
 	{
 		"Walken, Christopher",
-		Name{first: "Christopher", last: "Walken"},
+		Name{First: "Christopher", Last: "Walken"},
 	},
 	{
 		"Agent Frank Horrigan",
-		Name{first: "Frank", last: "Horrigan", prefix: "Agent"},
+		Name{First: "Frank", Last: "Horrigan", Prefix: "Agent"},
 	},
 	{
 		"Sir Paul McCartney",
-		Name{first: "Paul", last: "McCartney", prefix: "Sir"},
+		Name{First: "Paul", Last: "McCartney", Prefix: "Sir"},
 	},
 	{
 		"Robert Downey Jr.",
-		Name{first: "Robert", last: "Downey", suffix: "Jr."},
+		Name{First: "Robert", Last: "Downey", Suffix: "Jr."},
 	},
 	{
 		"King George III",
-		Name{first: "George", prefix: "King", suffix: "III"},
+		Name{First: "George", Prefix: "King", Suffix: "III"},
 	},
 }
