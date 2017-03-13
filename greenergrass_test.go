@@ -2,7 +2,7 @@ package greenergrass
 
 import "testing"
 
-const targetTestVersion = 1
+const targetTestVersion = 2
 
 func TestTestVersion(t *testing.T) {
 	if testVersion != targetTestVersion {
@@ -15,21 +15,23 @@ func TestSeparateName(t *testing.T) {
 		t.Fatalf("Failed to load the prefix/suffix data and got the following error\n%s", err)
 	}
 	for _, ntc := range nameTestCases {
-		got := SeparateName(ntc.input, " ")
-		if got.first != ntc.expected.first {
-			t.Fatalf("First Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.first, ntc.expected.first)
+		got := New(ntc.input)
+		got.SeparateName(" ")
+		// got := SeparateName(ntc.input, " ")
+		if got.First != ntc.expected.First {
+			t.Fatalf("First Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.First, ntc.expected.First)
 		}
-		if got.middle != ntc.expected.middle {
-			t.Fatalf("Middle Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.middle, ntc.expected.middle)
+		if got.Middle != ntc.expected.Middle {
+			t.Fatalf("Middle Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.Middle, ntc.expected.Middle)
 		}
-		if got.last != ntc.expected.last {
-			t.Fatalf("Last Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.last, ntc.expected.last)
+		if got.Last != ntc.expected.Last {
+			t.Fatalf("Last Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.Last, ntc.expected.Last)
 		}
-		if got.prefix != ntc.expected.prefix {
-			t.Fatalf("Prefix ::: SeparateName(%q) = %q, want %q", ntc.input, got.prefix, ntc.expected.prefix)
+		if got.Prefix != ntc.expected.Prefix {
+			t.Fatalf("Prefix ::: SeparateName(%q) = %q, want %q", ntc.input, got.Prefix, ntc.expected.Prefix)
 		}
-		if got.suffix != ntc.expected.suffix {
-			t.Fatalf("Suffix ::: SeparateName(%q) = %q, want %q", ntc.input, got.suffix, ntc.expected.suffix)
+		if got.Suffix != ntc.expected.Suffix {
+			t.Fatalf("Suffix ::: SeparateName(%q) = %q, want %q", ntc.input, got.Suffix, ntc.expected.Suffix)
 		}
 	}
 }
@@ -37,7 +39,7 @@ func TestSeparateName(t *testing.T) {
 func BenchmarkSeparateName(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, ntc := range nameTestCases {
-			SeparateName(ntc.input, " ")
+			New(ntc.input).SeparateName(" ")
 		}
 	}
 }
