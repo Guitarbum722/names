@@ -14,7 +14,12 @@ const testVersion = 1
 
 // Name contains a common list fields that could be combined as a person's full name
 type Name struct {
-	first, middle, last, prefix, suffix string
+	full, first, middle, last, prefix, suffix string
+}
+
+// New returns a pointer to a Name and initializes full with full
+func New(full string) *Name {
+	return &Name{full: full}
 }
 
 // LoadTitleData creates a map consisting of title prefixes and suffixes that are common.
