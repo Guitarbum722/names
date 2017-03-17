@@ -26,7 +26,8 @@ func New(full string) *Name {
 // This can be called optionally by the consumer if they are expecting their input data to
 // include prefixes and/or suffixes
 func LoadTitleData() error {
-	// ***change param to use a env extension***
+	// TODO***change param to use a env extension***
+	// TODO***load default title data and add boolean argument
 	_, err := titleFiles("")
 	if err != nil {
 		return err
