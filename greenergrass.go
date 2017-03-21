@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/tidwall/gjson"
 )
 
 const testVersion = 2
@@ -28,9 +29,22 @@ func New(full string) *Name {
 func LoadTitleData() error {
 	// TODO***change param to use a env extension***
 	// TODO***load default title data and add boolean argument
-	_, err := titleFiles("")
+	_, err := titleFiles("", false)
 	if err != nil {
 		return err
+	}
+	return nil
+}
+
+// LoadTitleDataCSV works the same as LoadTitleData(), but expects a file path as input with should contain a .csv file extension.
+func LoadTitleDataCSV(path string) error {
+	if strings.Contains(path, ".csv") || strings.Contains(path, ".CSV") {
+		_, err := titleFiles(path, true)
+		if err != nil {
+			return err
+		}
+	} else {
+		return errors.New("invalid file - must be .csv")
 	}
 	return nil
 }
@@ -82,29 +96,41 @@ func (n *Name) SeparateName(sep string) {
 
 var titleList = make(map[string]struct{})
 
-func titleFiles(filePath string) (map[string]struct{}, error) {
+func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
 
 	if filePath == "" {
-		filePath = "titles.csv"
+		// filePath = "titles.csv"
+		filePath = "default_titles.json"
 	}
 
-	csvFile, err := os.Open(filePath)
-	if err != nil {
-		return nil, errors.Wrap(err, "error opening csv")
-	}
-	defer csvFile.Close()
+	// Checks if the desired file is a csv and will process the fields by line accordingly.
+	if isCSV {
+		csvFile, err := os.Open(filePath)
+		if err != nil {
+			return nil, errors.Wrap(err, "error opening csv")
+		}
+		defer csvFile.Close()
 
-	reader := csv.NewReader(csvFile)
-	reader.FieldsPerRecord = -1
-	reader.Comma = ','
+		reader := csv.NewReader(csvFile)
+		reader.FieldsPerRecord = -1
+		reader.Comma = ','
 
-	records, err := reader.ReadAll()
-	if err != nil {
-		return nil, errors.Wrap(err, "error reading csv")
+		records, err := reader.ReadAll()
+		if err != nil {
+			return nil, errors.Wrap(err, "error reading csv")
+		}
+
+		for _, each := range records {
+			titleList[each[0]] = struct{}{}
+		}
+		return titleList, nil
 	}
 
-	for _, each := range records {
-		titleList[each[0]] = struct{}{}
-	}
+	// Load default data contained locally with the package.
+	defaultData := gjson.GetBytes(Defaults, "titles.#.title")
+	defaultData.ForEach(func(key, value gjson.Result) bool {
+		titleList[value.String()] = struct{}{}
+		return true
+	})
 	return titleList, nil
 }
