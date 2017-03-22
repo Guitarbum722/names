@@ -1,4 +1,4 @@
-# *greenergrass*
+# *GreenerGrass*
 _A simple package to assist with name data._
 
 ***********
