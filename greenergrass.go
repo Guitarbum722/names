@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
@@ -97,9 +98,21 @@ func (n *Name) SeparateName(sep string) {
 }
 
 // Initials returns the acronym for the Name.  The argument del will default to an empty string, but a common input would be "." producing a result with periods (eg. J.K.M.)
-func (n *Name) Initials(del string) string {
-	//TODO: Make Name.full a formatted full name after being parsed.
-	// For Initials(), loop through Name.full to create acronym
+func (n *Name) Initials(dots bool) string {
+	if len(n.initials) > 0 {
+		return n.initials
+	}
+	var res []rune
+	tokens := strings.Split(n.formatted, " ")
+
+	for _, token := range tokens {
+		temp, _ := utf8.DecodeRuneInString(token)
+		res = append(res, temp)
+		if dots {
+			res = append(res, '.')
+		}
+	}
+	n.initials = strings.ToUpper(string(res))
 	return n.initials
 }
 
