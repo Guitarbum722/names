@@ -17,7 +17,6 @@ func TestSeparateName(t *testing.T) {
 	for _, ntc := range nameTestCases {
 		got := New(ntc.input)
 		got.SeparateName(" ")
-		// got := SeparateName(ntc.input, " ")
 		if got.First != ntc.expected.First {
 			t.Fatalf("First Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.First, ntc.expected.First)
 		}
