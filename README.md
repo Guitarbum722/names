@@ -32,12 +32,22 @@ func main() {
 }
 ```
 
-or load a csv of titles by providing a file
+...or load a csv of titles by providing a file.
 
 ```go
 	if err := greenergrass.LoadTitleDataCSV("titles.csv"); err != nil {
 		log.Fatal(err, " ::: Ah man, wasn't able to load your file.")
 	}
+```
+
+Get the initials for the name.
+
+```go
+    // include periods
+    fmt.Println(n.Initials(true)) // D.J.T.
+
+    // exclude periods
+    fmt.Println(n.Initials(false)) // DJT
 ```
 ***********
 
