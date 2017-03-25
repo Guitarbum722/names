@@ -4,6 +4,7 @@ package greenergrass
 
 import (
 	"encoding/csv"
+	"fmt"
 	"os"
 	"strings"
 
@@ -15,7 +16,8 @@ const testVersion = 2
 
 // Name contains a common list fields that could be combined as a person's full name
 type Name struct {
-	full, First, Middle, Last, Prefix, Suffix string
+	First, Middle, Last, Prefix, Suffix string
+	full, formatted, initials           string
 }
 
 // New returns a pointer to a Name and initializes full with full
@@ -94,6 +96,13 @@ func (n *Name) SeparateName(sep string) {
 	}
 }
 
+// Initials returns the acronym for the Name.  The argument del will default to an empty string, but a common input would be "." producing a result with periods (eg. J.K.M.)
+func (n *Name) Initials(del string) string {
+	//TODO: Make Name.full a formatted full name after being parsed.
+	// For Initials(), loop through Name.full to create acronym
+	return n.initials
+}
+
 var titleList = make(map[string]struct{})
 
 func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
@@ -133,4 +142,14 @@ func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
 		return true
 	})
 	return titleList, nil
+}
+
+// FormatFullName creates a struct member with a formatted full name.
+func (n *Name) FormatName() {
+	n.formatted = fmt.Sprintf("%v %v %v", n.First, n.Middle, n.Last)
+}
+
+// FormattedName returns the formatted full name string created by FormatFullName()
+func (n *Name) FormattedName() string {
+	return n.formatted
 }
