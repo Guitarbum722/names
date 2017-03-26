@@ -4,7 +4,6 @@ package greenergrass
 
 import (
 	"encoding/csv"
-	"fmt"
 	"os"
 	"strings"
 	"unicode/utf8"
@@ -13,7 +12,10 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const testVersion = 4
+const (
+	testVersion = 4
+	space       = " "
+)
 
 // Name contains a common list fields that could be combined as a person's full name
 type Name struct {
@@ -157,7 +159,15 @@ func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
 
 // FormatName creates a struct member with a formatted full name.
 func (n *Name) FormatName() {
-	n.formatted = fmt.Sprintf("%v %v %v", n.First, n.Middle, n.Last)
+	if n.First != "" {
+		n.formatted += n.First
+	}
+	if n.Middle != "" {
+		n.formatted += space + n.Middle
+	}
+	if n.Last != "" {
+		n.formatted += space + n.Last
+	}
 }
 
 // FormattedName returns the formatted full name string created by FormatFullName()
