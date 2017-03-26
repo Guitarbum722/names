@@ -1,7 +1,7 @@
 # *GreenerGrass*
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/Guitarbum722/greenergrass)](https://goreportcard.com/report/github.com/Guitarbum722/greenergrass)
-<!--[![Coverage Status](https://img.shields.io/badge/coverage-47.8%25-brightgreen.svg?style=flat-square)](http://gocover.io/github.com/Guitarbum722/greenergrass)-->
+[![Coverage Status](https://img.shields.io/badge/coverage-82.4%25-brightgreen.svg?style=flat-square)](http://gocover.io/github.com/Guitarbum722/greenergrass)
 [![GoDoc](https://img.shields.io/badge/api-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Guitarbum722/greenergrass) 
 
 
