@@ -1,8 +1,8 @@
-# *GreenerGrass*
+# *Names*
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/Guitarbum722/greenergrass)](https://goreportcard.com/report/github.com/Guitarbum722/greenergrass)
-[![Coverage Status](https://img.shields.io/badge/coverage-82.4%25-brightgreen.svg?style=flat-square)](http://gocover.io/github.com/Guitarbum722/greenergrass)
-[![GoDoc](https://img.shields.io/badge/api-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Guitarbum722/greenergrass) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Guitarbum722/names)](https://goreportcard.com/report/github.com/Guitarbum722/names)
+[![Coverage Status](https://img.shields.io/badge/coverage-82.4%25-brightgreen.svg?style=flat-square)](http://gocover.io/github.com/Guitarbum722/names)
+[![GoDoc](https://img.shields.io/badge/api-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Guitarbum722/names) 
 
 
 _A simple package to assist with name data._
@@ -12,7 +12,7 @@ _A simple package to assist with name data._
 ### Step 0 - Installation
 
 ```sh
-$ go get -u github.com/Guitarbum722/greenergrass
+$ go get -u github.com/Guitarbum722/names
 ```
 
 ***********
@@ -27,12 +27,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/Guitarbum722/greenergrass"
+	"github.com/Guitarbum722/names"
 )
 
 func main() {
-	greenergrass.LoadTitleData() // Load default titles, prefixes and suffixes
-	n := greenergrass.New("Donald J. Trump")
+	names.LoadTitleData() // Load default titles, prefixes and suffixes
+	n := names.New("Donald J. Trump")
 	n.SeparateName(" ")
 	fmt.Printf("First: %v : Mid: %v : Last: %v", n.First, n.Middle, n.Last)
 }
@@ -41,7 +41,7 @@ func main() {
 ...or load a csv of titles by providing a file.
 
 ```go
-	if err := greenergrass.LoadTitleDataCSV("titles.csv"); err != nil {
+	if err := names.LoadTitleDataCSV("titles.csv"); err != nil {
 		log.Fatal(err, " ::: Ah man, wasn't able to load your file.")
 	}
 ```
