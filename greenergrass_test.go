@@ -1,6 +1,8 @@
 package greenergrass
 
-import "testing"
+import (
+	"testing"
+)
 
 const targetTestVersion = 3
 
