@@ -38,7 +38,7 @@ func TestSeparateName(t *testing.T) {
 }
 
 func TestLoadTitleDataCSV(t *testing.T) {
-	for _, tt := range CSVTests {
+	for _, tt := range csvTests {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := LoadTitleDataCSV(tt.arg); (err != nil) != tt.wantErr {
 				t.Errorf("LoadTitleDataCSV() error = %v, wantErr %v", err, tt.wantErr)
@@ -60,5 +60,55 @@ func BenchmarkLoadTitleData(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		LoadTitleData()
+	}
+}
+
+func TestInitials(t *testing.T) {
+	type fields struct {
+		First     string
+		Middle    string
+		Last      string
+		Prefix    string
+		Suffix    string
+		full      string
+		formatted string
+		initials  string
+	}
+	type args struct {
+		dots bool
+	}
+	initialsTests := []struct {
+		name   string
+		fields fields
+		arg    bool
+		want   string
+	}{
+		{
+			name:   "John Moore",
+			fields: fields{First: "John", Middle: "K.", Last: "Moore"},
+			arg:    true,
+			want:   "J.K.M.",
+		},
+	}
+	for _, tt := range initialsTests {
+		t.Run(tt.name, func(t *testing.T) {
+			n := &Name{
+				First:     tt.fields.First,
+				Middle:    tt.fields.Middle,
+				Last:      tt.fields.Last,
+				Prefix:    tt.fields.Prefix,
+				Suffix:    tt.fields.Suffix,
+				full:      tt.fields.full,
+				formatted: tt.fields.formatted,
+				initials:  tt.fields.initials,
+			}
+			n.FormatName()
+			if got := n.Initials(tt.arg); got != tt.want {
+				t.Errorf("Name.Initials() = %v, want %v", got, tt.want)
+			}
+			if alreadyCreated := n.Initials(tt.arg); alreadyCreated == "" {
+				t.Error("Initials should already be assigned.")
+			}
+		})
 	}
 }

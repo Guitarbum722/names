@@ -49,7 +49,7 @@ var nameTestCases = []struct {
 		Name{First: "George", Prefix: "King", Suffix: "III"},
 	},
 }
-var CSVTests = []struct {
+var csvTests = []struct {
 	name    string
 	arg     string
 	wantErr bool
