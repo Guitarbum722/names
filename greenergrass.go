@@ -1,5 +1,3 @@
-// Package greenergrass provides a utility API to assist with integration needs
-// regarding data transformation, normalization, cleanup, etc.
 package greenergrass
 
 import (
