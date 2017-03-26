@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-const targetTestVersion = 3
+const targetTestVersion = 4
 
 func TestTestVersion(t *testing.T) {
 	if testVersion != targetTestVersion {
@@ -18,7 +18,7 @@ func TestSeparateName(t *testing.T) {
 	}
 	for _, ntc := range nameTestCases {
 		got := New(ntc.input)
-		got.SeparateName(" ")
+		got.SeparateName("")
 		if got.First != ntc.expected.First {
 			t.Fatalf("First Name ::: SeparateName(%q) = %q, want %q", ntc.input, got.First, ntc.expected.First)
 		}
@@ -34,6 +34,16 @@ func TestSeparateName(t *testing.T) {
 		if got.Suffix != ntc.expected.Suffix {
 			t.Fatalf("Suffix ::: SeparateName(%q) = %q, want %q", ntc.input, got.Suffix, ntc.expected.Suffix)
 		}
+	}
+}
+
+func TestLoadTitleDataCSV(t *testing.T) {
+	for _, tt := range CSVTests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := LoadTitleDataCSV(tt.arg); (err != nil) != tt.wantErr {
+				t.Errorf("LoadTitleDataCSV() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
 	}
 }
 

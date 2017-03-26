@@ -13,7 +13,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const testVersion = 3
+const testVersion = 4
 
 // Name contains a common list fields that could be combined as a person's full name
 type Name struct {
@@ -87,7 +87,7 @@ func (n *Name) SeparateName(sep string) {
 		n.First = parts[0]
 	} else if len(parts) >= 2 && n.Last != "" {
 		n.First = string(parts[0])
-		n.Middle = strings.Join(parts[1:len(parts)], " ")
+		n.Middle = strings.Join(parts[1:], " ")
 	} else {
 		n.First = string(parts[0])
 		n.Middle = strings.Join(parts[1:len(parts)-1], " ")

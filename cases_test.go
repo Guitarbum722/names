@@ -49,3 +49,21 @@ var nameTestCases = []struct {
 		Name{First: "George", Prefix: "King", Suffix: "III"},
 	},
 }
+var CSVTests = []struct {
+	name    string
+	arg     string
+	wantErr bool
+}{
+	{
+		arg:     "titles.csv",
+		wantErr: false,
+	},
+	{
+		arg:     "nonexistent.csv",
+		wantErr: true,
+	},
+	{
+		arg:     "nothing_here.txt",
+		wantErr: true,
+	},
+}
