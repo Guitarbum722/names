@@ -1,4 +1,4 @@
-package greenergrass
+package names
 
 var nameTestCases = []struct {
 	input    string

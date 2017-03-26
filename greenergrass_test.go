@@ -1,4 +1,4 @@
-package greenergrass
+package names
 
 import (
 	"testing"

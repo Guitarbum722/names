@@ -1,4 +1,4 @@
-package greenergrass
+package names
 
 // Defaults provides a set of defaults at the package level.
 var Defaults = []byte(`{
