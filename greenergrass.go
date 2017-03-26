@@ -117,12 +117,7 @@ func (n *Name) Initials(dots bool) string {
 var titleList = make(map[string]struct{})
 
 func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
-
-	if filePath == "" {
-		// filePath = "titles.csv"
-		filePath = "default_titles.json"
-	}
-
+	
 	// Checks if the desired file is a csv and will process the fields by line accordingly.
 	if isCSV {
 		csvFile, err := os.Open(filePath)

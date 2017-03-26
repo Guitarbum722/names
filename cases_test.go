@@ -59,7 +59,7 @@ var csvTests = []struct {
 	wantErr bool
 }{
 	{
-		arg:     "titles.csv",
+		arg:     "test_titles.csv",
 		wantErr: false,
 	},
 	{
