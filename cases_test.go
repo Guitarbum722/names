@@ -48,6 +48,10 @@ var nameTestCases = []struct {
 		"King George III",
 		Name{First: "George", Prefix: "King", Suffix: "III"},
 	},
+	{
+		"Carell, Steven John",
+		Name{First: "Steven", Middle: "John", Last: "Carell"},
+	},
 }
 var csvTests = []struct {
 	name    string

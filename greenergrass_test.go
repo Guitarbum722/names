@@ -47,22 +47,6 @@ func TestLoadTitleDataCSV(t *testing.T) {
 	}
 }
 
-func BenchmarkSeparateName(b *testing.B) {
-	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		New(nameTestCases[2].input).SeparateName(" ")
-	}
-}
-
-func BenchmarkLoadTitleData(b *testing.B) {
-	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		LoadTitleData()
-	}
-}
-
 func TestInitials(t *testing.T) {
 	type fields struct {
 		First     string
@@ -116,5 +100,21 @@ func TestInitials(t *testing.T) {
 				t.Error("Initials should already be assigned.")
 			}
 		})
+	}
+}
+
+func BenchmarkSeparateName(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		New(nameTestCases[2].input).SeparateName(" ")
+	}
+}
+
+func BenchmarkLoadTitleData(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		LoadTitleData()
 	}
 }
