@@ -89,6 +89,12 @@ func TestInitials(t *testing.T) {
 			arg:    true,
 			want:   "J.K.M.",
 		},
+		{
+			name:   "John Paul Jones",
+			fields: fields{First: "John", Middle: "Paul", Last: "Jones"},
+			arg:    false,
+			want:   "JPJ",
+		},
 	}
 	for _, tt := range initialsTests {
 		t.Run(tt.name, func(t *testing.T) {
