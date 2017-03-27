@@ -2,9 +2,9 @@ package names
 
 import (
 	"encoding/csv"
-	"os"
 	"strings"
 	"unicode/utf8"
+	"bytes"
 
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
@@ -30,7 +30,7 @@ func New(full string) *Name {
 // This can be called optionally by the consumer if they are expecting their input data to
 // include prefixes and/or suffixes
 func LoadTitleData() error {
-	_, err := titleFiles("", false)
+	_, err := titleFiles(bytes.NewBuffer(Defaults), false)
 	if err != nil {
 		return err
 	}
@@ -38,14 +38,10 @@ func LoadTitleData() error {
 }
 
 // LoadTitleDataCSV works the same as LoadTitleData(), but expects a file path as input with should contain a .csv file extension.
-func LoadTitleDataCSV(path string) error {
-	if strings.Contains(path, ".csv") || strings.Contains(path, ".CSV") {
-		_, err := titleFiles(path, true)
-		if err != nil {
-			return err
-		}
-	} else {
-		return errors.New("invalid file - must be .csv")
+func LoadTitleDataCSV(b *bytes.Buffer) error {
+	_, err := titleFiles(b, true)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -116,17 +112,12 @@ func (n *Name) Initials(dots bool) string {
 
 var titleList = make(map[string]struct{})
 
-func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
+func titleFiles(b *bytes.Buffer, isCSV bool) (map[string]struct{}, error) {
 	
 	// Checks if the desired file is a csv and will process the fields by line accordingly.
 	if isCSV {
-		csvFile, err := os.Open(filePath)
-		if err != nil {
-			return nil, errors.Wrap(err, "error opening csv")
-		}
-		defer csvFile.Close()
 
-		reader := csv.NewReader(csvFile)
+		reader := csv.NewReader(strings.NewReader(b.String()))
 		reader.FieldsPerRecord = -1
 		reader.Comma = ','
 
@@ -142,7 +133,7 @@ func titleFiles(filePath string, isCSV bool) (map[string]struct{}, error) {
 	}
 
 	// Load default data contained locally with the package.
-	defaultData := gjson.GetBytes(Defaults, "titles.#.title")
+	defaultData := gjson.GetBytes(b.Bytes(), "titles.#.title")
 	defaultData.ForEach(func(key, value gjson.Result) bool {
 		titleList[value.String()] = struct{}{}
 		return true

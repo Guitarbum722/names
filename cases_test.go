@@ -1,5 +1,7 @@
 package names
 
+import "bytes"
+
 var nameTestCases = []struct {
 	input    string
 	expected Name
@@ -55,19 +57,11 @@ var nameTestCases = []struct {
 }
 var csvTests = []struct {
 	name    string
-	arg     string
+	arg     *bytes.Buffer
 	wantErr bool
 }{
 	{
-		arg:     "test_titles.csv",
+		arg:     bytes.NewBuffer([]byte("Mrs.,p\nMr.,p")),
 		wantErr: false,
-	},
-	{
-		arg:     "nonexistent.csv",
-		wantErr: true,
-	},
-	{
-		arg:     "nothing_here.txt",
-		wantErr: true,
 	},
 }
