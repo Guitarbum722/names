@@ -23,6 +23,6 @@ _testmain.go
 *.test
 *.prof
 
-
+*.csv
 
 cover.out
