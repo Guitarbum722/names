@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/Guitarbum722/names)](https://goreportcard.com/report/github.com/Guitarbum722/names)
 [![Coverage Status](https://img.shields.io/badge/coverage-93.9%25-brightgreen.svg?style=flat-square)](http://gocover.io/github.com/Guitarbum722/names)
 [![GoDoc](https://img.shields.io/badge/api-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/Guitarbum722/names) 
-
+[![Build Status](https://travis-ci.org/Guitarbum722/names.svg?branch=master)](https://travis-ci.org/Guitarbum722/names)
 
 _A simple package to assist with name data._
 
