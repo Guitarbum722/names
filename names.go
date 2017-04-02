@@ -1,10 +1,10 @@
 package names
 
 import (
+	"bytes"
 	"encoding/csv"
 	"strings"
 	"unicode/utf8"
-	"bytes"
 
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
@@ -113,7 +113,7 @@ func (n *Name) Initials(dots bool) string {
 var titleList = make(map[string]struct{})
 
 func titleFiles(b *bytes.Buffer, isCSV bool) (map[string]struct{}, error) {
-	
+
 	// Checks if the desired file is a csv and will process the fields by line accordingly.
 	if isCSV {
 
