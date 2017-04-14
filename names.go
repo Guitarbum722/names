@@ -117,7 +117,7 @@ func titleFiles(b *bytes.Buffer, isCSV bool) (map[string]struct{}, error) {
 	// Checks if the desired file is a csv and will process the fields by line accordingly.
 	if isCSV {
 
-		reader := csv.NewReader(strings.NewReader(b.String()))
+		reader := csv.NewReader(b)
 		reader.FieldsPerRecord = -1
 		reader.Comma = ','
 
